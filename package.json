@@ -1,0 +1,27 @@
+{
+  "name": "blog-crud-completo",
+  "version": "1.0.0",
+  "description": "projeto de blog com \"CRUD\" completo e editor de texto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felipealvesnn/Blog-CRUD-Completo.git"
+  },
+  "keywords": [
+    "1994caoH"
+  ],
+  "author": "felipealvesnn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Felipealvesnn/Blog-CRUD-Completo/issues"
+  },
+  "homepage": "https://github.com/Felipealvesnn/Blog-CRUD-Completo#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "sequelize": "^6.6.5"
+  }
+}
