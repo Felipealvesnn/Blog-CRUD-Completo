@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/Felipealvesnn/Blog-CRUD-Completo#readme",
   "dependencies": {
+    "bootstrap": "^5.1.2",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "mysql2": "^2.3.0",
     "sequelize": "^6.6.5"
   }
 }
