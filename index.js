@@ -1,6 +1,8 @@
 const express = require('express');
-const app= express();
+const app = express();
 const connection = require('./database/database')
+const categories = require("./categories/categoriesController");
+const articles = require('./articles/ArticlesController');
 
 
 app.set('view engine', 'ejs'); //to dizendo qual vai ser a minha engine 
@@ -16,9 +18,14 @@ connection
     console.log(error);
 })
 
+app.use("/", categories);
+app.use("/", articles);
+
+
 app.get("/",(req, res)=>{
     res.render('index');
 })
+
 app.listen(8080,()=>{
     console.log('O SERVIDOR ESTÁ RODANDO')
 })
