@@ -5,7 +5,9 @@ router.get("/categories", (req, res)=>{
     res.send('rota de categgorias');
 });
 router.get("/admin/articles/new",(req, res)=>{
-    res.send('Nova Categoria');
+    res.render('../views/Admin/categories/new');
 
 });
+
+
 module.exports = router;

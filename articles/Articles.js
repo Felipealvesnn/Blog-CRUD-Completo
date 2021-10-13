@@ -17,7 +17,7 @@ const Article = connection.define('article', {
     }
 
 });
-Category.hasMany(Article);
+Category.hasMany(Article); //categoria tem varios artigos
 Article.belongsTo(Category); //um artigo pertece a uma catogoria
 //Article.sync({force:true}) força criar a tabela
 
