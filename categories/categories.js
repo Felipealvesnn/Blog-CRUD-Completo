@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const connection = require("../database/database");
 
-
+// item para criar a tabela categorias no banco de dados
 const Categorie = connection.define('categories', {
     title:{
         type:Sequelize.STRING,
