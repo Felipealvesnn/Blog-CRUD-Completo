@@ -5,7 +5,10 @@
 
     <div class="container">
         <hr>
-        <h2>categorias</h2><hr>
+        <h2>categorias</h2>
+        <hr>
+        <a href="/admin/articles/new" class="btn btn-success">criar nova categoria</a>
+        <hr>
         <table class="table table-bordered">
 
             <thead>
@@ -17,12 +20,22 @@
                 </tr>
             </thead>
             <tbody>
+
+                <% categoriesFront.forEach(categoriesFront => { %>
                 <tr>
-                    <th>1</th>
-                    <th>dev web</th>
-                    <th>dev-web</th>
-                    <th></th>
+                    <th><%= categoriesFront.id %> </th>
+                    <th><%= categoriesFront.title %></th>
+                    <th><%= categoriesFront.slug %></th>
+                    <th>
+                        <button class="btn btn-warning">editar</button>
+                        <form method="post" action="/categories/delete" style="display: inline;" onsubmit="coonfirmarDelecao(event, this)"> <input type="hidden"
+                                name="id" value="<%= categoriesFront.id %>">
+                            <button class="btn btn-danger">deletar</button>
+                        </form>
+                    </th>
                 </tr>
+
+                <% }) %>
             </tbody>
 
         </table>
@@ -31,4 +44,14 @@
 
 </body>
 
-    <%- include ('../../partials/footer.ejs') %>
+<%- include ('../../partials/footer.ejs') %>
+<script>
+    function coonfirmarDelecao(event,form){
+        event.preventDefault();
+        var decision = confirm ("Você quer deletar essa categoria?");
+        if (decision){
+            form.submit();
+        }
+
+    }
+</script>

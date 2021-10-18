@@ -13,25 +13,53 @@ router.get("/admin/articles/new",(req, res)=>{
 router.post("/categories/save", (req, res)=>{
    var titla= req.body.title;
 
-   if(titla != undefined){
-       category.create({
-           title:titla,
-           slug: slugfy(titla)
+   if(titla == undefined){
 
-       }).then(()=>{
-           res.redirect("/")
-       })
-
+    res.redirect('/admin/articles/new')
+   
    }else{
-       res.redirect('/admin/articles/new')
+
+    category.create({
+        title:titla,
+        slug: slugfy(titla)
+
+    }).then(()=>{ res.redirect("/admin/categories")})
+
    }
 });
 
 router.get("/admin/categories",(req, res)=>{
 
-    res.render("./Admin/categories/index");
+    category.findAll().then(categories =>{
+
+        res.render("./Admin/categories/index", {categoriesFront: categories} );
+    })
+
+    
 
 });
+
+router.post('/categories/delete', (req, res)=>{
+    var id = req.body.id;
+    if(id != undefined){
+
+            category.destroy({
+                where: {
+
+                    id:id
+                }
+            }).then(()=>{
+                res.redirect('/admin/categories')
+            })
+
+      
+
+    }else // se o Id for nulo
+    {
+        res.redirect('/admin/categories')
+
+    }
+})
 
 
 
