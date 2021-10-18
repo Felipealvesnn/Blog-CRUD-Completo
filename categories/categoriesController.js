@@ -11,7 +11,7 @@ router.get("/admin/articles/new",(req, res)=>{
 
 });
 router.post("/categories/save", (req, res)=>{
-   var titla= req.body.title;
+   var titla = req.body.title;
 
    if(titla == undefined){
 
