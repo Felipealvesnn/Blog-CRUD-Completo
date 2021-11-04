@@ -20,16 +20,15 @@
                 </tr>
             </thead>
             <tbody>
-
                 <% categoriesFront.forEach(categoriesFront => { %>
                 <tr>
                     <th><%= categoriesFront.id %> </th>
                     <th><%= categoriesFront.title %></th>
                     <th><%= categoriesFront.slug %></th>
                     <th>
-                        <button class="btn btn-warning">editar</button>
-                        <form method="post" action="/categories/delete" style="display: inline;" onsubmit="coonfirmarDelecao(event, this)"> <input type="hidden"
-                                name="id" value="<%= categoriesFront.id %>">
+                        <a href="/admin/categories/edit/<%= categoriesFront.id %>" class="btn btn-warning">editar</a>
+                        <form method="post" action="/categories/delete" style="display: inline;" onsubmit="coonfirmarDelecao(event, this)"> 
+                            <input type="hidden" name="id" value="<%= categoriesFront.id %>">
                             <button class="btn btn-danger">deletar</button>
                         </form>
                     </th>
