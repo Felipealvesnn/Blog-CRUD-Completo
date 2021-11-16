@@ -6,8 +6,7 @@ router.get("/articles", (req, res)=>{
 });
 
 router.get("/admin/articles/new",(req, res)=>{
-    res.send('Novo artigo');
-
+    res.render('./Admin/articles/new')
 });
 
 module.exports = router;

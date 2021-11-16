@@ -7,7 +7,7 @@ router.get("/categories", (req, res)=>{
     res.send('rota de categgorias');
 });
 
-router.get("/admin/articles/new",(req, res)=>{
+router.get("/admin/categories/new",(req, res)=>{
     res.render('../views/Admin/categories/new');
 
 });
