@@ -71,12 +71,25 @@ app.get("/category/:slug",(req, res)=>{
     where: {
       slug: slug,
     },
+    include:[{model:Articlestable}]
   }).then(category=>{
-    
+    if (category!=undefined){
+      categoriestable.findAll().then((categories) => {
+        res.render("index", {
+          articleFront: category.articles,
+          categoriesFront: categories,
+        });
+      });
 
 
-  })
+    }else{
+      res.send("Coisa errada ai mermao");
+    }
 
+  }).catch((err) => {
+    //res.redirect("/");
+    console.log(err)
+  });
 })
 
 app.listen(8080, () => {
