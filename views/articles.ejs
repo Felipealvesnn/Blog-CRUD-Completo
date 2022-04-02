@@ -1,0 +1,23 @@
+<%- include ('partials/header.ejs') %>
+
+<body>
+    <%- include ('partials/navbarInit.ejs') %>
+
+    
+    <br/>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= articleFront.title %></h2>
+                </div>
+                <div class="card-body">
+                    <%- articleFront.body %> 
+                
+                </div>
+            </div>
+        
+    </div>
+    
+</body>
+
+<%- include ('partials/footer.ejs') %>

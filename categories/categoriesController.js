@@ -33,9 +33,9 @@ router.post("/categories/save", (req, res)=>{
 
 router.get("/admin/categories",(req, res)=>{
 
-    category.findAll({raw: true,order: [['id', 'DESC']]}).then(categories =>{
+    category.findAll({raw: true,order: [['id', 'DESC']]}).then(categorieslist =>{
 
-        res.render("./Admin/categories/index", {categoriesFront: categories} );
+        res.render("./Admin/categories/index", {categoriesFront: categorieslist} );
     })
 
 });
@@ -66,7 +66,7 @@ router.get("/admin/categories/edit/:id", (req , res)=>{
     category.findByPk(id).then(categoria=>{
         if (categoria != undefined){
 
-            res.render("./Admin/categories/edit", {category:categoria})
+            res.render("./Admin/categories/edit", {categoryFront:categoria})
 
 
         }else{ 
@@ -74,6 +74,7 @@ router.get("/admin/categories/edit/:id", (req , res)=>{
         }
     })
 });
+
 
 router.post("/categories/update", (req, res)=>{
     var id = req.body.id;

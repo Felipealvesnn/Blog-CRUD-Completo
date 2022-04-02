@@ -1,9 +1,31 @@
 <%- include ('partials/header.ejs') %>
 
 <body>
-    <%- include ('partials/navbar.ejs') %>
+    <%- include ('partials/navbarInit.ejs') %>
 
-    <h1>Pagina inicial</h1>
+    <div class="container">
+        <hr>
+        <div class="jumbotron">
+            <h1 class="display-4">Bem-vindo</h1>
+            <p class="lead">Este é um simples blog do Felipe .</p>
+            <hr class="my-4">
+            <p>Descrição detalhada aqui!</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+          </div>
+        </br>
+        <% articleFront.forEach(element => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= element.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="/<%= element.slug %>" class="btn btn-success">Ler artigo</a>
+                </div>
+            </div>
+         
+        <% }) %>
+
+    </div>
     
 </body>
 
