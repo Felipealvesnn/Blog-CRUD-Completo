@@ -3,9 +3,10 @@ const router = express.Router();
 const articleTable = require("./articles");
 const categoryTable = require("../categories/categories");
 const slugfy =  require("slugify");
+const autorize = require("../midwhere/midwhare");
 
 
-router.get("/admin/articles", (req, res)=>{
+router.get("/admin/articles", autorize, (req, res)=>{
     articleTable.findAll({
         order: [
             ["id","DESC"]
@@ -99,7 +100,7 @@ router.get("/articles/page/:num",(req, res) =>{
 })
 
 
-router.get("/admin/articles/new",(req, res)=>{
+router.get("/admin/articles/new",autorize,(req, res)=>{
     categoryTable.findAll().then(categoriesList =>{
     res.render('../views/Admin/articles/new',{categoryFront:categoriesList});
     })
@@ -130,7 +131,7 @@ router.post("/articles/save", (req, res)=>{
 });
 
 
-router.get("/admin/articles/edit/:id", (req , res)=>{
+router.get("/admin/articles/edit/:id", autorize,(req , res)=>{
     var id = req.params.id;
     if(isNaN(id) && id!= undefined)
     {res.redirect('/admin/categories')}
@@ -169,7 +170,7 @@ router.post("/articles/update", (req, res)=>{
 
 });
 
-router.post('/articles/delete', (req, res)=>{
+router.post('/articles/delete', autorize,(req, res)=>{
     var id = req.body.id;
     if(id != undefined){
 

@@ -1,13 +1,21 @@
 const express = require("express");
 const app = express();
 const connection = require("./database/database");
+const session = require("express-session");
 
 const categoriesController = require("./categories/categoriesController");
 const ArticlesController = require("./articles/ArticlesController");
 const Articlestable = require("./articles/Articles");
 const categoriestable = require("./categories/categories");
+const UserController = require("./user/userController");
+
+
 
 app.set("view engine", "ejs"); //to dizendo qual vai ser a minha engine
+
+// Sessions
+app.use(session({secret:"xibiu",cookie:{maxAge:3000000000}}))
+
 app.use(express.static("public")); //arquivos estaticos
 //bodyparser
 app.use(express.urlencoded({ extended: true }));
@@ -23,7 +31,10 @@ connection
   });
 
 app.use("/", categoriesController);
-app.use("/", ArticlesController);
+app.use("/", UserController);
+app.use("/",ArticlesController);
+
+
 
 app.get("/", (req, res) => {
   Articlestable.findAll({
@@ -101,5 +112,5 @@ app.get("/category/:slug",(req, res)=>{
 
 
 app.listen(8080, () => {
-  console.log("O SERVIDOR ESTÁ RODANDO");
+  console.log("O SERVIDOR ESTÁ RODANDO SEU ARROMBADO");
 });

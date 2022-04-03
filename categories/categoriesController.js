@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const category = require("./categories");
 const slugfy =  require("slugify");
+const autorize = require("../midwhere/midwhare");
 
 router.get("/categories", (req, res)=>{
     res.send('rota de categgorias');
 });
 
-router.get("/admin/categories/new",(req, res)=>{
+router.get("/admin/categories/new",autorize,(req, res)=>{
     res.render('../views/Admin/categories/new');
 
 });
@@ -31,7 +32,7 @@ router.post("/categories/save", (req, res)=>{
    }
 });
 
-router.get("/admin/categories",(req, res)=>{
+router.get("/admin/categories",autorize,(req, res)=>{
 
     category.findAll({raw: true,order: [['id', 'DESC']]}).then(categorieslist =>{
 
@@ -40,7 +41,7 @@ router.get("/admin/categories",(req, res)=>{
 
 });
 
-router.post('/categories/delete', (req, res)=>{
+router.post('/categories/delete', autorize,(req, res)=>{
     var id = req.body.id;
     if(id != undefined){
 
@@ -60,7 +61,7 @@ router.post('/categories/delete', (req, res)=>{
     }
 })
 
-router.get("/admin/categories/edit/:id", (req , res)=>{
+router.get("/admin/categories/edit/:id", autorize,(req , res)=>{
     var id = req.params.id;
     if(isNaN(id)){res.redirect('/admin/categories')}
     category.findByPk(id).then(categoria=>{
