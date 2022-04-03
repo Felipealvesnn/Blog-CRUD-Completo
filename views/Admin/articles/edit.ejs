@@ -14,7 +14,7 @@
             <div class="card-body">
                 <form method="post" action="/articles/update">
                     <input class="form-control" type="text" name="title" id="" placeholder="defina o titulo da categoria" value=" <%= articleFront.title %> " >
-                    <textarea class="form-control" placeholder="escreve o artigo aqui" name="body" id="article" ></textarea><br>
+                    <textarea class="form-control" placeholder="escreve o artigo aqui" name="body" id="article" ><%= articleFront.body %> </textarea><br>
                     
                     <label>Categoria</label>
                 <select name="category" class="form-control">
@@ -69,7 +69,7 @@
                     'emoticons',
         ],
         init_instance_callback: () => {
-            tinymce.get("articleFront").setContent($("#content").html())
+            tinymce.get("article").setContent($("#content").html()) // pega o id da textare "article" e defina o conteudo dela "content"
         }
     })
 
