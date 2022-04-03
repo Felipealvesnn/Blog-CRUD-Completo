@@ -27,8 +27,10 @@ app.use("/", ArticlesController);
 
 app.get("/", (req, res) => {
   Articlestable.findAll({
-    order: [["id", "DESC"]],
-    //limit: 4,
+    order: [
+      ["id","DESC"]
+    ],
+    limit: 4,
   }).then((articlesgoriesList) => {
     categoriestable.findAll().then((categories) => {
       res.render("index", {
@@ -38,6 +40,8 @@ app.get("/", (req, res) => {
     });
   });
 });
+
+
 
 app.get("/:slug", (req, res) => {
   var slug = req.params.slug;
@@ -91,6 +95,10 @@ app.get("/category/:slug",(req, res)=>{
     console.log(err)
   });
 })
+
+
+
+
 
 app.listen(8080, () => {
   console.log("O SERVIDOR ESTÁ RODANDO");

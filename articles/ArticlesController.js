@@ -5,20 +5,96 @@ const categoryTable = require("../categories/categories");
 const slugfy =  require("slugify");
 
 
-router.get("/articles", (req, res)=>{
+router.get("/admin/articles", (req, res)=>{
     articleTable.findAll({
+        order: [
+            ["id","DESC"]
+          ],
         include:[{model:categoryTable}],
-        //limit: 5
+        limit: 5
     }).then(articles=>{
         res.render('../views/Admin/articles/index',{articlesFront:articles})
     });
     
 });
 
-router.get("/articles/page/:num",(req, res) =>{
+router.get("/admin/articles/page/:num",(req, res) =>{
     var page = req.params.num;
     var offset = 0;
-    articleTable.findAndCountALL()
+    if(isNaN(page || page ==1)){
+        offset = 0;
+    }else{
+        offset = (parseInt(page) - 1) * 4;
+    }
+    articleTable.findAndCountAll({
+        order: [
+            ["id","DESC"]
+          ],
+        include:[{model:categoryTable}],
+        limit:5,
+        offset:offset
+
+    }).then(article=>{
+
+        var next;
+        if(offset +4 >= article.count ){
+            next=false
+        }
+        else{
+            next = true;
+        }
+        var result = {
+            page: parseInt(page),
+             articleFront:article,
+             next:next
+        }
+        categoryTable.findAll().then(category=>{
+            res.render("../views/Admin/articles/pageAdmin" ,{  result:result, categoriesFront:category});
+
+        })
+        
+        
+    })
+
+})
+
+
+router.get("/articles/page/:num",(req, res) =>{
+    var page = parseInt(req.params.num);
+    var offset = 0;
+    if(isNaN(page || page==1)){
+        offset=0;
+    }else{
+        offset= (page-1)*5;
+    }
+    articleTable.findAndCountAll({
+        order: [
+            ["id","DESC"]
+          ],
+        limit:5,
+        offset:offset
+
+    })
+    .then(article=>{
+
+        var next;
+        if(offset +5 >= article.count ){
+            next=false
+        }
+        else{
+            next = true;
+        }
+        var result = {
+             articleFront:article,
+             next:next
+        }
+        categoryTable.findAll().then(category=>{
+            res.render("../views/Admin/articles/page" ,{ pageFront:page, result:result, categoriesFront:category});
+
+        })
+        
+        
+    })
 
 })
 
