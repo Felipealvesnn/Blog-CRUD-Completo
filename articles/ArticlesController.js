@@ -7,12 +7,21 @@ const slugfy =  require("slugify");
 
 router.get("/articles", (req, res)=>{
     articleTable.findAll({
-        include:[{model:categoryTable}]
+        include:[{model:categoryTable}],
+        //limit: 5
     }).then(articles=>{
         res.render('../views/Admin/articles/index',{articlesFront:articles})
     });
     
 });
+
+router.get("/articles/page/:num",(req, res) =>{
+    var page = req.params.num;
+    var offset = 0;
+    articleTable.findAndCountALL()
+
+})
+
 
 router.get("/admin/articles/new",(req, res)=>{
     categoryTable.findAll().then(categoriesList =>{
@@ -25,13 +34,22 @@ router.post("/articles/save", (req, res)=>{
     var titla = req.body.title;
     var body = req.body.body;
     var category = req.body.category;
-    articleTable.create({
-        title:titla,
-        slug:slugfy(titla),
-        body:body,
-        categoryId:category
-    }).then(()=>
-        { res.redirect("/articles")})
+    if( isNaN( titla) && titla!= undefined ){
+        articleTable.create({
+            title:titla,
+            slug:slugfy(titla),
+            body:body,
+            categoryId:category
+        }).then(()=>
+            { res.redirect("/articles")})
+            .catch((err) => {
+                console.log(err)
+            });
+
+    }else{
+        res.send("Tem coisa errada ai");
+    }
+    
 
 });
 

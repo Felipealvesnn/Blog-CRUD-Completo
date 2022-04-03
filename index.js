@@ -28,7 +28,7 @@ app.use("/", ArticlesController);
 app.get("/", (req, res) => {
   Articlestable.findAll({
     order: [["id", "DESC"]],
-    limit: 4,
+    //limit: 4,
   }).then((articlesgoriesList) => {
     categoriestable.findAll().then((categories) => {
       res.render("index", {
