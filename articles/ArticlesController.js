@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const articleTable = require("./articles");
+const articleTable = require("./Articles");
 const categoryTable = require("../categories/categories");
 const slugfy =  require("slugify");
 const autorize = require("../midwhere/midwhare");
@@ -118,7 +118,7 @@ router.post("/articles/save", (req, res)=>{
             body:body,
             categoryId:category
         }).then(()=>
-            { res.redirect("/articles")})
+            { res.redirect("/admin/articles")})
             .catch((err) => {
                 console.log(err)
             });
@@ -144,27 +144,27 @@ router.get("/admin/articles/edit/:id", autorize,(req , res)=>{
 
 
         }else{ 
-            res.redirect('/articles')
+            res.redirect('/admin/articles')
         }
     })
 });
 
-router.post("/articles/update", (req, res)=>{
+router.post("/articles/updatef", (req, res)=>{
     var id = req.body.id;
     var title = req.body.title;
     var body = req.body.body;
     var category = req.body.category;
 
-    articleTable.update({title:title, slugfy:slugfy(title),
+    articleTable.update({title:title, slug:slugfy(title),
         body:body, categoryId: category},
         {
         where:{
             id:id
         }
-    }).then(()=>{ res.redirect('articles')})
+    }).then(()=>{ res.redirect('/admin/articles')})
 
     .catch(err => {
-        res.redirect("/");
+        console.log(err)
     });
 
 
@@ -179,7 +179,7 @@ router.post('/articles/delete', autorize,(req, res)=>{
 
                     id:id
                 }
-            }).then(()=>{ res.redirect('/articles')})
+            }).then(()=>{ res.redirect('/admin/articles')})
 
       
 

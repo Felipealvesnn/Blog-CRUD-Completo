@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const UserTable = require("./User");
 const bcrypt = require('bcryptjs');
+const autorize = require("../midwhere/midwhare");
 
 
-
-router.get("/admin/users", (req, res) => {
+router.get("/admin/users",autorize, (req, res) => {
     UserTable.findAll().then(users => {
         res.render('../views/Admin/users/index',{users: users});
     });
