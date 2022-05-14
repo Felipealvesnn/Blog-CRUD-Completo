@@ -117,6 +117,7 @@ app.get("/category/:slug",(req, res)=>{
 
 
 
+
 app.listen(8080, () => {
   console.log("O SERVIDOR ESTÁ RODANDO ");
 });
